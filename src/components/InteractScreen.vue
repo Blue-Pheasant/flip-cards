@@ -13,12 +13,12 @@
       <card-flip
         v-for="(card, index) in cardsContext"
         :key="index"
-        :ref="`card-${index}`"
+        :ref="`card__${index}`"
         :cardsContext="cardsContext"
         :imgBackFaceUrl="`images/${card}.png`"
         :card="{ index, value: card }"
         :rules="rules"
-        @onFlip="check($event)"
+        @onFlip="checkRule($event)"
       />
     </div>
   </div>
@@ -44,21 +44,33 @@ export default {
     };
   },
   methods: {
-    check(card) {
+    checkRule(card) {
       console.log(card);
-      this.rules.push(card);
+      if (this.rules.length === 0) {
+        this.rules.push(card);
+      }
+      if (this.rules.length === 1) {
+        if (
+          card.index !== this.rules[0].index &&
+          card.value !== this.rules[0].value
+        ) {
+          this.rules.push(card);
+        }
+      }
       if (this.rules.length === 2) {
         if (this.rules[0].value === this.rules[1].value) {
-          console.log("right");
-          this.$refs[`card-${this.rules[0].index}`].onEnabledDisabledMode();
-          this.$refs[`card-${this.rules[1].index}`].onEnabledDisabledMode();
+          console.log("Right");
+          this.$refs[`card__${this.rules[0].index}`][0].onEnabledDisabledMode();
+          this.$refs[`card__${this.rules[1].index}`][0].onEnabledDisabledMode();
+          this.rules = [];
         } else {
-          console.log("wrong");
+          console.log("Wrong");
           setTimeout(() => {
-            this.$refs[`card-${this.rules[0].index}`].onFlipBackCard();
-            this.$refs[`card-${this.rules[1].index}`].onFlipBackCard();
+            // this.$refs[`card__${this.rules[0].index}`] will return a proxy list
+            this.$refs[`card__${this.rules[0].index}`][0].onFlipBackCard();
+            this.$refs[`card__${this.rules[1].index}`][0].onFlipBackCard();
             this.rules = [];
-          }, 800);
+          }, 1000);
         }
       }
     },

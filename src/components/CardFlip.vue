@@ -64,6 +64,7 @@ export default {
       type: Array,
     },
   },
+  emits: ["onFlip"],
   data() {
     return {
       isFlipped: false,
@@ -77,11 +78,10 @@ export default {
       this.isFlipped = !this.isDisable;
       if (this.isFlipped) {
         this.$emit("onFlip", this.card);
-        console.log("Oke la");
       }
     },
     onEnabledDisabledMode() {
-      this.isDisabled = true;
+      this.isDisabled = false;
     },
     onFlipBackCard() {
       this.isFlipped = false;

@@ -9,6 +9,7 @@
       :cardsContext="settings.cardsContext"
     />
     <footer-screen />
+    <result-screen v-if="settings.statusMatch === 'finish'" />
   </div>
 </template>
 
@@ -16,6 +17,7 @@
 import MainScreen from "./components/MainScreen.vue";
 import InteractScreen from "./components/InteractScreen.vue";
 import FooterScreen from "./components/FooterScreen.vue";
+import ResultScreen from "./components/ResultScreen.vue";
 import { shuffled } from "./utils/array";
 export default {
   name: "App",
@@ -33,6 +35,7 @@ export default {
     MainScreen,
     InteractScreen,
     FooterScreen,
+    ResultScreen,
   },
   methods: {
     onHandleBeforeStart(config) {
