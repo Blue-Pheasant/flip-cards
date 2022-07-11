@@ -1,7 +1,7 @@
 <template>
   <div class="screen">
-    <h1>Poke Memories</h1>
-    <p>Select mode to start game</p>
+    <h1>POKE MEMORIES</h1>
+    <h3>Select mode to start game</h3>
     <div class="modes">
       <button @click="onStart(16)">
         <span>4x4</span>
@@ -16,8 +16,8 @@
         <span>Hard</span>
       </button>
       <button @click="onStart(100)">
-        <span>10x10</span>
-        <span>Super Hard</span>
+        <span>10X10</span>
+        <span>Super hard</span>
       </button>
     </div>
   </div>
@@ -25,16 +25,15 @@
 
 <script>
 export default {
-  emits: ["onStart"],
   methods: {
-    onStart(totalOfBlocks) {
-      this.$emit("onStart", { totalOfBlocks });
+    onStart(blocks) {
+      this.$emit("onStart", { totalOfBlock: blocks });
     },
   },
 };
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 .screen {
   width: 100%;
   height: 100vh;
@@ -58,7 +57,6 @@ export default {
 .screen p {
   font-size: 2rem;
 }
-
 .modes {
   display: flex;
   margin-top: 2rem;
@@ -86,7 +84,6 @@ export default {
   background-color: var(--light);
   color: var(--dark);
 }
-
 .modes button span:first-child {
   font-size: 2rem;
 }
