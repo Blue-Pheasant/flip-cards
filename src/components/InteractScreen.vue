@@ -45,6 +45,13 @@ export default {
   },
   methods: {
     checkRule(card) {
+      console.log(this.rules.length);
+      if (this.rules.length === 2) {
+        setTimeout(() => {
+          this.$refs[`card__${card.index}`][0].onFlipBackCard();
+        }, 800);
+        return;
+      }
       if (this.$refs[`card__${card.index}`][0].statusCard()) return;
       console.log(card);
       if (this.rules.length === 0) {
@@ -64,14 +71,14 @@ export default {
           this.rules = [];
         } else {
           console.log("Wrong");
+          this.$refs[`card__${this.rules[0].index}`][0].disAbledMode();
+          this.$refs[`card__${this.rules[1].index}`][0].disAbledMode();
           setTimeout(() => {
             // this.$refs[`card__${this.rules[0].index}`] will return a proxy list
-            this.$refs[`card__${this.rules[0].index}`][0].disAbledMode();
-            this.$refs[`card__${this.rules[1].index}`][0].disAbledMode();
             this.$refs[`card__${this.rules[0].index}`][0].onFlipBackCard();
             this.$refs[`card__${this.rules[1].index}`][0].onFlipBackCard();
             this.rules = [];
-          }, 1000);
+          }, 800);
         }
       }
     },
