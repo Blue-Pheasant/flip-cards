@@ -45,28 +45,29 @@ export default {
   },
   methods: {
     checkRule(card) {
+      if (this.$refs[`card__${card.index}`][0].statusCard()) return;
       console.log(card);
       if (this.rules.length === 0) {
         this.rules.push(card);
+        this.$refs[`card__${this.rules[0].index}`][0].onAbledMode();
+        return;
       }
       if (this.rules.length === 1) {
-        if (
-          card.index !== this.rules[0].index &&
-          card.value !== this.rules[0].value
-        ) {
+        if (card.index !== this.rules[0].index) {
           this.rules.push(card);
+          this.$refs[`card__${this.rules[1].index}`][0].onAbledMode();
         }
       }
       if (this.rules.length === 2) {
         if (this.rules[0].value === this.rules[1].value) {
           console.log("Right");
-          this.$refs[`card__${this.rules[0].index}`][0].onEnabledDisabledMode();
-          this.$refs[`card__${this.rules[1].index}`][0].onEnabledDisabledMode();
           this.rules = [];
         } else {
           console.log("Wrong");
           setTimeout(() => {
             // this.$refs[`card__${this.rules[0].index}`] will return a proxy list
+            this.$refs[`card__${this.rules[0].index}`][0].disAbledMode();
+            this.$refs[`card__${this.rules[1].index}`][0].disAbledMode();
             this.$refs[`card__${this.rules[0].index}`][0].onFlipBackCard();
             this.$refs[`card__${this.rules[1].index}`][0].onFlipBackCard();
             this.rules = [];

@@ -73,18 +73,23 @@ export default {
   },
   methods: {
     onToggleFlipCard() {
-      if (this.rules.length >= 2) return;
       if (this.isDisable) return;
       this.isFlipped = !this.isDisable;
       if (this.isFlipped) {
         this.$emit("onFlip", this.card);
       }
     },
-    onEnabledDisabledMode() {
+    disAbledMode() {
       this.isDisabled = false;
     },
     onFlipBackCard() {
       this.isFlipped = false;
+    },
+    statusCard() {
+      return this.isDisabled;
+    },
+    onAbledMode() {
+      this.isDisabled = true;
     },
   },
 };
