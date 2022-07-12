@@ -27,6 +27,7 @@
 <script>
 import CardFlip from "./CardFlip.vue";
 export default {
+  emits: ["onFinish"],
   props: {
     cardsContext: {
       type: Array,
@@ -41,11 +42,11 @@ export default {
   data() {
     return {
       rules: [],
+      statusMatch: "interact",
     };
   },
   methods: {
     checkRule(card) {
-      console.log(this.rules.length);
       if (this.rules.length === 2) {
         setTimeout(() => {
           this.$refs[`card__${card.index}`][0].onFlipBackCard();
@@ -53,7 +54,6 @@ export default {
         return;
       }
       if (this.$refs[`card__${card.index}`][0].statusCard()) return;
-      console.log(card);
       if (this.rules.length === 0) {
         this.rules.push(card);
         this.$refs[`card__${this.rules[0].index}`][0].onAbledMode();
@@ -67,10 +67,15 @@ export default {
       }
       if (this.rules.length === 2) {
         if (this.rules[0].value === this.rules[1].value) {
-          console.log("Right");
           this.rules = [];
+          console.log(document.getElementsByClassName("is-flipped").length);
+          var x = document.getElementsByClassName("is-flipped");
+          if (x.length === this.cardsContext.length - 1) {
+            setTimeout(() => {
+              this.$emit("onFinish");
+            }, 800);
+          }
         } else {
-          console.log("Wrong");
           this.$refs[`card__${this.rules[0].index}`][0].disAbledMode();
           this.$refs[`card__${this.rules[1].index}`][0].disAbledMode();
           setTimeout(() => {

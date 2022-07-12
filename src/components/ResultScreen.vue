@@ -1,15 +1,15 @@
 <template>
   <div class="screen">
     <h1>✨ Congratulations ✨</h1>
-    <h3>{{ Math.round(timer / 920) }} seconds</h3>
-    <button @click="onStartAgain">Start Again</button>
+    <h3>{{ Math.round(totalTime / 920) }} seconds</h3>
+    <button @click="onStartAgain()">Play again</button>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    timer: {
+    totalTime: {
       type: Number,
       default: 0,
     },

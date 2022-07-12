@@ -7,9 +7,14 @@
     <interact-screen
       v-if="settings.statusMatch === 'interact'"
       :cardsContext="settings.cardsContext"
+      @onFinish="getResult()"
+    />
+    <result-screen
+      v-if="settings.statusMatch === 'finish'"
+      :totalTime="settings.totalTime"
+      @onStartAgain="startAgain()"
     />
     <footer-screen />
-    <result-screen v-if="settings.statusMatch === 'finish'" />
   </div>
 </template>
 
@@ -28,6 +33,7 @@ export default {
         statusMatch: "default",
         cardsContext: [],
         startedAt: null,
+        totalTime: null,
       },
     };
   },
@@ -39,7 +45,7 @@ export default {
   },
   methods: {
     onHandleBeforeStart(config) {
-      console.log("On handle before start: ", config.totalOfBlock);
+      // console.log("On handle before start: ", config.totalOfBlock);
       this.settings.totalBlocks = config.totalOfBlock;
       const firstCards = Array.from(
         { length: this.settings.totalBlocks / 2 },
@@ -50,9 +56,16 @@ export default {
       this.settings.cardsContext = shuffled(
         shuffled(shuffled(shuffled(cards)))
       );
-      console.log(this.settings.cardsContext);
+      // console.log(this.settings.cardsContext);
       this.settings.statusMatch = "interact";
       this.settings.startedAt = new Date().getTime();
+    },
+    getResult() {
+      this.settings.totalTime = new Date().getTime() - this.settings.startedAt;
+      this.settings.statusMatch = "finish";
+    },
+    startAgain() {
+      this.settings.statusMatch = "default";
     },
   },
 };
