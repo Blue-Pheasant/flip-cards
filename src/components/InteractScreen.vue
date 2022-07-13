@@ -68,7 +68,7 @@ export default {
       if (this.rules.length === 2) {
         if (this.rules[0].value === this.rules[1].value) {
           this.rules = [];
-          console.log(document.getElementsByClassName("is-flipped").length);
+          // console.log(document.getElementsByClassName("is-flipped").length);
           var x = document.getElementsByClassName("is-flipped");
           if (x.length === this.cardsContext.length - 1) {
             setTimeout(() => {
