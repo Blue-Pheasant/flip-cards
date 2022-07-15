@@ -20,5 +20,15 @@ yarn build
 yarn lint
 ```
 
+### Docker pull 
+```
+docker pull callmedavid:flip-cards
+```
+
+### Docker run 
+```
+docker run -d -p 3000:8080 flip-cards
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

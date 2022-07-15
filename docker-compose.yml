@@ -1,0 +1,20 @@
+version: "1"
+
+services:
+  vue-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flip-cards
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - vue-network
+    command: >
+      sh -c "npm run serve"
+      
+networks:
+  vue-network:
+    driver: bridge
+    
