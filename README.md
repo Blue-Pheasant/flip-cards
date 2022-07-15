@@ -22,7 +22,7 @@ yarn lint
 
 ### Docker pull 
 ```
-docker pull callmedavid:flip-cards
+docker pull callmedavid/flip-cards
 ```
 
 ### Docker run 
