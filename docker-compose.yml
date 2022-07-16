@@ -1,4 +1,4 @@
-version: "1"
+version: "3"
 
 services:
   vue-app:
@@ -8,7 +8,7 @@ services:
     container_name: flip-cards
     restart: always
     ports:
-      - "8000:8000"
+      - "3000:8080"
     networks:
       - vue-network
     command: >
